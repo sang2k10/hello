@@ -19,7 +19,7 @@
   left: 0;
   color: rgb(247, 77, 173);
   font-family: 'Roboto', sans-serif; 
-  font-size: clamp(25px, 4vw , 30px);
+  font-size: clamp(16px, 8vw , 22px);
   text-shadow: 0px 0px 20px rgb(247, 77, 173);
 }
 
@@ -1215,6 +1215,7 @@ body {
 
 
 /*# sourceMappingURL=style.css.map */
+
 
 
 
