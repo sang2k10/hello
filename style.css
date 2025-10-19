@@ -1,0 +1,239 @@
+:root {
+    /* --- CÁC BIẾN MÀU CÓ THỂ TÙY CHỈNH --- */
+    --rose-color-1: #E91E63; /* Màu hồng đậm */
+    --rose-color-2: #FF4081; /* Màu hồng tươi */
+    --rose-color-3: #F06292; /* Màu hồng nhạt hơn */
+    --leaf-color: #4CAF50;    /* Màu lá */
+    --stem-color: #689F38;    /* Màu thân cây */
+    --wrapper-color: #fce4ec; /* Màu giấy gói */
+    --ribbon-color: #C2185B;  /* Màu nơ */
+    --text-color: #4A148C;    /* Màu chữ trên thiệp */
+    --card-bg-color: #FFFDE7; /* Màu nền thiệp */
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f7f7f7;
+    /* --- THAY ĐỔI FONT CHỮ --- */
+    font-family: 'Quicksand', sans-serif;
+    overflow-x: hidden; /* Ngăn cuộn ngang trên điện thoại */
+}
+
+/* --- LỚP BỌC ĐỂ CO GIÃN (RESPONSIVE) --- */
+.scene {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bouquet-container {
+    /* Bỏ perspective để làm phẳng, dễ co giãn hơn */
+    position: relative;
+}
+
+.bouquet {
+    position: relative;
+    width: 300px; /* Kích thước cơ bản */
+    height: 450px; /* Kích thước cơ bản */
+    /* Bỏ transform 3D để dễ tương thích mobile */
+    animation: fadeIn 1s ease-out forwards;
+}
+
+/* --- ANIMATION ĐUNG ĐƯA --- */
+@keyframes sway {
+    0% { transform: rotateZ(-4deg); }
+    50% { transform: rotateZ(4deg); }
+    100% { transform: rotateZ(-4deg); }
+}
+
+/* --- Thiết kế bông hoa (hình tròn) --- */
+.flower {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: var(--rose-color-1);
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+    /* Áp dụng animation đung đưa */
+    animation: sway 3s ease-in-out infinite;
+
+    /* (Phần ::before và ::after giữ nguyên như cũ) */
+    &::before {
+        content: '';
+        position: absolute;
+        width: 70%;
+        height: 70%;
+        background-color: var(--rose-color-2);
+        border-radius: 50%;
+        top: 15%;
+        left: 15%;
+        transform: rotate(30deg);
+        box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        background-color: var(--rose-color-3);
+        border-radius: 50%;
+        top: 25%;
+        left: 25%;
+        transform: rotate(-20deg);
+        box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+}
+
+/* Vị trí các bông hoa */
+.flower-1 { top: 30px; left: 120px; z-index: 10; transform: scale(1); }
+.flower-2 { top: 60px; left: 60px; z-index: 9; transform: scale(0.95); }
+.flower-3 { top: 60px; left: 180px; z-index: 9; transform: scale(0.95); }
+.flower-4 { top: 100px; left: 90px; z-index: 8; transform: scale(0.9); }
+.flower-5 { top: 100px; left: 150px; z-index: 8; transform: scale(0.9); }
+.flower-6 { top: 140px; left: 120px; z-index: 7; transform: scale(0.85); }
+.flower-7 { top: 80px; left: 20px; z-index: 7; transform: scale(0.8); }
+.flower-8 { top: 80px; left: 220px; z-index: 7; transform: scale(0.8); }
+
+/* --- TÙY CHỈNH ANIMATION CHO TỪNG BÔNG HOA --- */
+/* (Thêm delay và thay đổi thời gian để chúng không đung đưa cùng lúc) */
+.flower-1 { animation-delay: 0s; animation-duration: 2.8s; }
+.flower-2 { animation-delay: -0.5s; animation-duration: 3.2s; }
+.flower-3 { animation-delay: -1.0s; animation-duration: 3.0s; }
+.flower-4 { animation-delay: -1.5s; animation-duration: 2.9s; }
+.flower-5 { animation-delay: -2.0s; animation-duration: 3.1s; }
+.flower-6 { animation-delay: -2.5s; animation-duration: 2.8s; }
+.flower-7 { animation-delay: -0.2s; animation-duration: 3.3s; }
+.flower-8 { animation-delay: -0.8s; animation-duration: 3.0s; }
+
+
+/* --- Thân cây và lá (Giữ nguyên) --- */
+.stem-group {
+    position: absolute;
+    top: 180px;
+    left: 135px;
+    width: 30px;
+    height: 150px;
+    z-index: 5;
+    transform-origin: top center;
+    transform: rotate(5deg);
+}
+.stem {
+    position: absolute;
+    width: 8px;
+    height: 100px;
+    background-color: var(--stem-color);
+    border-radius: 4px;
+    transform-origin: top center;
+}
+.stem-1 { left: 0px; transform: rotate(-10deg); height: 120px; top: -10px;}
+.stem-2 { left: 10px; transform: rotate(5deg); height: 130px; top: -5px;}
+.stem-3 { left: -10px; transform: rotate(15deg); height: 110px; top: -15px;}
+.stem-4 { left: 20px; transform: rotate(-20deg); height: 100px; top: 0px;}
+.leaf {
+    position: absolute;
+    width: 25px;
+    height: 50px;
+    background-color: var(--leaf-color);
+    border-radius: 0 50% 50% 50%;
+    transform-origin: bottom center;
+    z-index: 6;
+}
+.leaf-1 { top: 100px; left: -15px; transform: rotate(-40deg); }
+.leaf-2 { top: 120px; left: 20px; transform: rotate(20deg); }
+.leaf-3 { top: 80px; left: 30px; transform: rotate(60deg); }
+
+/* --- Giấy gói hoa (Giữ nguyên) --- */
+.wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(to bottom, transparent 0%, transparent 50%, var(--wrapper-color) 50%, var(--wrapper-color) 100%);
+    border-radius: 0 0 100px 100px;
+    z-index: 1;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 50%;
+        height: 100%;
+        background-color: var(--wrapper-color);
+        opacity: 0.8;
+        border-radius: 0 0 100px 100px;
+    }
+    &::before { left: -20%; transform: rotate(-10deg); }
+    &::after { right: -20%; transform: rotate(10deg); }
+}
+
+/* --- Nơ (Giữ nguyên) --- */
+.ribbon {
+    position: absolute;
+    top: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 30px;
+    background-color: var(--ribbon-color);
+    border-radius: 5px;
+    z-index: 15;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        background-color: var(--ribbon-color);
+        border-radius: 50% 0 50% 50%;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    &::before { left: -10px; transform: translateY(-50%) rotate(45deg); }
+    &::after { right: -10px; transform: translateY(-50%) rotate(-45deg); }
+}
+
+/* --- THAY ĐỔI VỊ TRÍ THIỆP NHẮN --- */
+.message-card {
+    position: absolute;
+    top: 290px; /* Di chuyển xuống dưới nơ (nơ ở 250px) */
+    left: 50%;
+    transform: translateX(-50%); /* Căn giữa, không nghiêng */
+    width: 220px; /* Rộng hơn 1 chút cho font mới */
+    height: auto; /* Tự động co giãn theo nội dung */
+    background-color: var(--card-bg-color);
+    border-radius: 5px;
+    padding: 10px 15px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    z-index: 12; /* Nằm trên giấy gói, dưới nơ */
+    font-size: 0.9em;
+    color: var(--text-color);
+    text-align: center;
+    line-height: 1.5; /* Giãn dòng cho dễ đọc */
+    font-weight: 500; /* Font Quicksand đẹp hơn khi đậm 1 chút */
+}
+.message-card p {
+    margin: 5px 0; /* Khoảng cách giữa 2 dòng */
+}
+
+/* --- Animation (Giữ nguyên) --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.8); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --- ĐIỀU CHỈNH CHO MÀN HÌNH ĐIỆN THOẠI --- */
+@media (max-width: 360px) {
+    .bouquet-container {
+        /* Thu nhỏ toàn bộ bó hoa xuống 85% */
+        transform: scale(0.85);
+    }
+}
